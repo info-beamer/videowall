@@ -27,7 +27,11 @@ local player = (function()
         pp(pkt)
         if pkt.cmd == "load" then
             if next_res then next_res:dispose() end
-            next_res = raw.load_video(pkt.filename, false, false, true)
+            next_res = raw.load_video{
+                file = pkt.filename,
+                audio = false, -- switch to true, if you want audio
+                paused = true
+            }
         elseif pkt.cmd == "start" then
             old_res = res
             res = next_res
